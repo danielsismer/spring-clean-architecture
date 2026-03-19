@@ -22,7 +22,7 @@ public class UserSpec {
     private static Specification<User> filterByCpf(String cpf){
         return (root, query, criteriaBuilder) -> {
             if(cpf == null || cpf.isBlank()) return null;
-            return criteriaBuilder.like(criteriaBuilder.lower(root.get("email")), "%"+cpf.toLowerCase()+"%");
+            return criteriaBuilder.like(criteriaBuilder.lower(root.get("cpf")), "%"+cpf.toLowerCase()+"%");
         };
     }
 }

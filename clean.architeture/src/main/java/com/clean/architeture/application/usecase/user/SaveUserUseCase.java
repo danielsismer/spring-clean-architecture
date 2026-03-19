@@ -4,6 +4,7 @@ import com.clean.architeture.application.mapper.UserMapper;
 import com.clean.architeture.domain.dto.request.UserRequestDTO;
 import com.clean.architeture.domain.dto.response.UserResponseDTO;
 import com.clean.architeture.domain.entity.User;
+import com.clean.architeture.domain.exception.EmailAlreadyExistsException;
 import com.clean.architeture.domain.port.UserRepositoryPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,9 @@ public class SaveUserUseCase {
 
     @Transactional
     public UserResponseDTO save(UserRequestDTO userRequestDTO) {
+        if (userRepositoryPort.existByEmail(userRequestDTO.email()))
+            throw new EmailAlreadyExistsException(userRequestDTO.email());
+
         User user = userMapper.toEntity(userRequestDTO);
         user = userRepositoryPort.save(user);
         return userMapper.toResponse(user);

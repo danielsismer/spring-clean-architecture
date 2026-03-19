@@ -25,6 +25,8 @@ public class UserController {
     private final FindUserUseCase findUserUseCase;
     private final FindUserByIdUseCase findUserByIdUseCase;
     private final UpdateUserUseCase updateUserUseCase;
+    private final FindByEmailUseCase findByEmailUseCase;
+    private final FindByCpfUseCase findByCpfUseCase;
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> save(@RequestBody @Valid UserRequestDTO userRequestDTO){
@@ -57,5 +59,18 @@ public class UserController {
                 .build();
     }
 
+    // search by email
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserResponseDTO> findByEmail(@PathVariable String email){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(findByEmailUseCase.find(email));
+    }
+
+    //search by cpf
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<UserResponseDTO> findByCpf(@PathVariable String cpf){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(findByCpfUseCase.find(cpf));
+    }
 
 }

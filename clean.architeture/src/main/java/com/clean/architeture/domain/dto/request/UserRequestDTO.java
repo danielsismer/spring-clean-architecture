@@ -1,20 +1,21 @@
 package com.clean.architeture.domain.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CPF;
 
-public record UserRequestDTO (
+@Schema(description = "Request body for creating or updating a user")
+public record UserRequestDTO(
 
-        @Email
-        @NotBlank
+        @Schema(description = "User email", example = "ana@email.com")
+        @NotBlank(message = "email is required")
+        @Email(message = "invalid email")
         String email,
 
-        @CPF
-        @NotBlank
+        @Schema(description = "User CPF", example = "123.456.789-01")
+        @NotBlank(message = "cpf is required")
         String cpf,
 
-        @NotBlank
+        @Schema(description = "User phone", example = "(11) 98765-4321")
         String phone
-) {
-}
+) {}

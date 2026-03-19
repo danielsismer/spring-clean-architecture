@@ -40,4 +40,14 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     public void delete(Long id) {
         usuarioJpaRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return usuarioJpaRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<User> findByCpf(String cpf) {
+        return usuarioJpaRepository.findByCpf(cpf);
+    }
 }
